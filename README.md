@@ -6,8 +6,8 @@ Functions to help when working with Barks.
 This package makes it easier to work with the Bark scale when analyzing
 and plotting acoustic data. It contains two pairs of functions. The
 first (`bark` and `hz`) convert between Hz and Barks. The other
-(`scale_x_bark` and \`scale\_y\_bark\`\`) make it easy to plot data in
-ggplot2 usingthe Bark scale.
+(`scale_x_bark` and `scale_y_bark`) make it easy to plot data in ggplot2
+using the Bark scale.
 
 To install the package, you can do so by downloading it from github.
 
@@ -145,7 +145,7 @@ You’ll have to transform the data a little bit. You can use the code
 that I provided in my
 [tutorial](http://joeystanley.com/blog/reshaping-vowel-formant-data-with-tidyr)
 with the new `pivot_longer` function in `dplyr`. I’ll just pull out my
-/ai/ vowel for this plot:
+/aʊ/ vowel for this plot:
 
 ``` r
 vowels_long <- vowels %>%
@@ -161,7 +161,7 @@ vowels_long <- vowels %>%
   unite(traj_id, phoneme_id, formant, remove = FALSE)
 ```
 
-Here’s what a spectroram-like plot might look
+Here’s what a spectrogram-like plot might look
 like
 
 ``` r
