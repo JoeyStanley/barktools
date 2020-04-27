@@ -9,6 +9,19 @@ first (`bark` and `hz`) convert between Hz and Barks. The other
 (`scale_x_bark` and \`scale\_y\_bark\`\`) make it easy to plot data in
 ggplot2 usingthe Bark scale.
 
+To install the package, you can do so by downloading it from github.
+
+``` r
+# install.packages("remotes") # <- if not already installed
+remotes::install_github("joeystanley/barktools")
+```
+
+You can then load it like any other library.
+
+``` r
+library(barktools)
+```
+
 ## Load the data
 
 For this little vignette, I’ll load some sample vowel data from my own
@@ -33,7 +46,7 @@ ggplot(vowels, aes(F2, F1)) +
        subtitle = "Data and plot are in Hz")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 Now, let’s say I want to plot using Barks. You can use the `bark()`
 function to convert the formant frequencies into Barks.
@@ -52,7 +65,7 @@ ggplot(vowels_with_barks, aes(F2_bark, F1_bark)) +
        subtitle = "Data and plot are in Barks")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
 The Bark scale turns the nonlinear Hz data into something a little more
 linear, so the shape of the vowel space should change somewhat.
@@ -93,7 +106,7 @@ ggplot(vowels, aes(F2, F1)) +
        subtitle = "Data is in Hz; plot is in Barks")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 Now, you can see that the shape of the vowel space is identical to the
 plot above, except the axis labels are more useful: I have a better idea
@@ -119,7 +132,7 @@ ggplot(vowels, aes(F2, F1)) +
        subtitle = "Data is in Hz; plot is in Barks")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 Exactly which values you want to put is up to you, obviously, so play
 around with it until it looks good.
@@ -157,7 +170,7 @@ ggplot(vowels_long, aes(percent, hz, color = formant, group = traj_id)) +
   theme_bw()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
 Now, a lot of the change in /ai/ happens along the F1 dimension, but
 because of the logorithmic nature of sound, F2 visually takes up most of
@@ -172,7 +185,7 @@ ggplot(vowels_long, aes(percent, hz, color = formant, group = traj_id)) +
   theme_bw()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
 
 Note that this time, I added the argument `rev = FALSE` to
 `scale_y_bark`. By default, the function will flip the axis (like
