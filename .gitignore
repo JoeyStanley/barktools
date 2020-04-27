@@ -1,6 +1,6 @@
 # My files
 .DS_Store
-sandbox.Rmd
+*.Rmd
 *.Rproj
 .Rbuildignore
 
