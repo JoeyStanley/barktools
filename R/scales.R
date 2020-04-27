@@ -58,7 +58,7 @@ bark_trans <- function(rev) {
     scales::trans_new(name = "bark_rev", 
                       transform = function(x) -bark(x), 
                       inverse   = function(x) hz(-x),
-                      minor_breaks = regular_minor_breaks(reverse = TRUE))
+                      minor_breaks = scales::regular_minor_breaks(reverse = TRUE))
   } else {
     scales::trans_new(name = "bark", 
                       transform = bark, 
