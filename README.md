@@ -68,7 +68,7 @@ hz(6)
     ## [1] 631.1045
 
 But it would be better if we could incorporate more interpretable values
-into the plot itself. I think the first time I saw thi was in
+into the plot itself. I think the first time I saw this was in
 [Harrington et al’s (2000)
 paper](https://www.jstor.org/stable/44526873?seq=1#metadata_info_tab_contents)
 on how the Queen of England’s speech changes over
@@ -112,7 +112,7 @@ ggplot(vowels, aes(F2, F1)) +
   geom_point() + 
   scale_x_bark(breaks = c(c(500, 1000, 1500, 2000, 3000)),
                minor_breaks = seq(0, 4000, 100)) +
-  scale_y_bark(breaks = c(c(250, 500, 750, 1000, 1500)),
+  scale_y_bark(breaks = c(c(200, 400, 600, 800, 1000, 1500)),
                minor_breaks = seq(0, 3000, 100)) + 
   theme_minimal() + 
   labs(title = "Joey's vowels",
