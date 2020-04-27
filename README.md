@@ -68,8 +68,15 @@ hz(6)
     ## [1] 631.1045
 
 But it would be better if we could incorporate more interpretable values
-into the plot itself.
+into the plot itself. I think the first time I saw thi was in
+[Harrington et al’s (2000)
+paper](https://www.jstor.org/stable/44526873?seq=1#metadata_info_tab_contents)
+on how the Queen of England’s speech changes over
+time:
 
+<img src="harrington_sample.jpg" width="500px" style="display: block; margin: auto;" />
+
+Notice how the axes are in Barks, but the data is still plotted in Hz.
 This is a perfect case for using the `scale_x_bark()` and
 `scale_y_bark()` functions. Like the other `scale_*` functions in
 ggplot2, this will transform the axes of your plot. In this case, it’ll
@@ -86,7 +93,7 @@ ggplot(vowels, aes(F2, F1)) +
        subtitle = "Data is in Hz; plot is in Barks")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 Now, you can see that the shape of the vowel space is identical to the
 plot above, except the axis labels are more useful: I have a better idea
@@ -112,7 +119,7 @@ ggplot(vowels, aes(F2, F1)) +
        subtitle = "Data is in Hz; plot is in Barks")
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 Exactly which values you want to put is up to you, obviously, so play
 around with it until it looks good.
@@ -150,7 +157,7 @@ ggplot(vowels_long, aes(percent, hz, color = formant, group = traj_id)) +
   theme_bw()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 Now, a lot of the change in /ai/ happens along the F1 dimension, but
 because of the logorithmic nature of sound, F2 visually takes up most of
@@ -165,7 +172,7 @@ ggplot(vowels_long, aes(percent, hz, color = formant, group = traj_id)) +
   theme_bw()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 Note that this time, I added the argument `rev = FALSE` to
 `scale_y_bark`. By default, the function will flip the axis (like
