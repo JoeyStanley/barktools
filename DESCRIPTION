@@ -12,7 +12,7 @@ Description: This package makes it easier to work with the
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-URL: http://github.com/JoeyStanley/barktools
+URL: https://joeystanley.github.io/barktools/, https://github.com/JoeyStanley/barktools/
 RoxygenNote: 7.0.2
 Imports:
   scales (>= 1.1)
