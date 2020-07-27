@@ -1,7 +1,7 @@
 template:
   params:
     bootswatch: flatly
-    ganalytics: 
+    ganalytics: UA-86802921-2
 development:
   mode: unreleased
 reference:
