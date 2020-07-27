@@ -9,7 +9,7 @@ Description: This package makes it easier to work with the
     One pair of functions convert between Hz and Barks and
     the other makes it easy to plot data in ggplot2 using 
     the Bark scale.
-License: What license is it under?
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 URL: http://github.com/JoeyStanley/barktools
