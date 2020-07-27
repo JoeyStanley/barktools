@@ -4,3 +4,12 @@ template:
     ganalytics: 
 development:
   mode: unreleased
+reference:
+  - title: "Conversion tools"
+  - contents:
+    - bark
+    - hz
+  - title: "Plotting tools"
+  - contents:
+    - scale_x_bark
+    - scale_y_bark
