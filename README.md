@@ -90,4 +90,4 @@ vowels %>%
     ## 10 FOOT     367. 1594. 2477  3367     3.70   11.5     14.4    16.4
     ## # … with 554 more rows
 
-Please see [Getting Started](docs/barktools.html) to find out more.
+Please see [Getting Started](barktools.html) to find out more.
