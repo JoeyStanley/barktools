@@ -21,6 +21,32 @@
 #'
 #' @param x A number.
 #' @return The number transformed into Barks or Hz.
+#' 
+#' @examples 
+#' # The simplest case is by converting one number.
+#' bark(500)
+#' hz(3)
+#' 
+#' # You can also convert a whole vector of numbers.
+#' data(vowels)
+#' head(bark(vowels$F1))
+#' 
+#' #' This is probably easier within a tidyverse pipeline
+#' \dontrun{
+#' library(dplyr)
+#' vowels %>%
+#'    select(vowel, F1:F4) %>%
+#'    mutate(F1_bark = bark(F1),
+#'           F2_bark = bark(F2),
+#'           F3_bark = bark(F3),
+#'           F4_bark = bark(F4))
+#'           
+#' # Or, more elegantly, using dplyr::across()
+#' vowels %>%
+#'    select(vowel, F1:F4) %>%
+#'    mutate(across(F1:F4, bark, .names = "{col}_bark"))
+#' }
+#' 
 #' @export
 bark <- function (x) {
   
