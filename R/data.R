@@ -57,7 +57,7 @@
 
 #' Formant measurements from 81 tokens of the MOUTH vowel
 #' 
-#' A dataset containing formant measurements from 81 tokens of the MOUTH (/ai/) 
+#' A dataset containing formant measurements from 81 tokens of the MOUTH (/au/) 
 #' vowel. These came from generated nonce words. This dataset is relatively 
 #' clean and can be used for vowel formant example data.
 #' 
@@ -73,7 +73,7 @@
 #' Every combination of these levels was generated and repeated three times. The
 #' resulting list was sorted randomly. I read them in a quiet environment, manually aligned
 #' them, extracted formants using a Praat script (4 formants at 4500 Hz), and 
-#' filtered out the bad measurements. 
+#' filtered out the bad measurements.
 #' 
 #' The result is a pretty clean dataset showing my vowel formant trajectories, 
 #' in the environment of a coronal consonant.
@@ -88,21 +88,21 @@
 #' and Georgia as an adult. Data was recorded July 2020 (age 31).
 #' 
 #' Note that this is a subset of \code{joeyr::joey_coronals}. It's just the
-#' MOUTH tokens.
+#' MOUTH tokens, with just F1 and F2, and reshaped into a "tall" format.
 #' 
-#' @format A data frame with 564 rows and 12 variables:
+#' @format A data frame with 2,758 rows and 12 variables:
 #' \describe{
+#'   \item{traj_id}{a unique identifier for each trajectory (that is, each combination of vo))}
 #'   \item{vowel_id}{a unique identifier for each vowel token}
 #'   \item{start}{the start time for that vowel}
 #'   \item{end}{the end time for that vowel}
 #'   \item{t}{the time where formants were extracted}
-#'   \item{F1}{the F1 measurement}
-#'   \item{F2}{the F2 measurement}
-#'   \item{F3}{the F3 measurement}
-#'   \item{F4}{the F4 measurement}
+#'   \item{percent}{how far into the vowel's duration (in terms of percent of the duration) the formants were extracted. 0 = onset, 50 = midpoint, 100 = offset}
 #'   \item{word}{the generated nonce word I read}
 #'   \item{pre}{the consonant(s) before the vowel (if any)}
 #'   \item{fol}{the consonant(s) after the vowel}
+#'   \item{formant}{which formant did the data come from}
+#'   \item{hz}{the formant measurements, in hz}
 #' }
 #' 
 "mouth"
