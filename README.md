@@ -18,13 +18,20 @@ library(ggplot2)
 ## Plotting in the Bark scale
 
 You can use `scale_x_bark` and `scale_y_bark` within a `ggplot` to plot
-the data in Hz but scaled into Barks. In the following F1-F2 plot, the
-front of portion of the vowel space is more compressed.
+the data in Hz but scaled into Barks. In the following side-by-side
+comparison of an F1-F2 plot, the figure on the left uses a linear scale.
+Meanwhile, in the figure on the right, the left and bottom portions of
+the plot is more compressed.
 
 ![](man/figures/README-f1_f2_example-1.png)<!-- -->
 
-In the following spectrogram plots, F1 is wider and F2 is more
-compressed.
+The plot on the right looks the same as if you had plotted the data in
+Barks themselves, except the axes are in Hz instead of Barks.
+
+In the following spectrogram plots, we only need to use the Bark scale
+along the *y*-axis. In the left panel, which displays the data in a
+linear scale, F2 takes up the majorty of the plot. Meanwhile, in the
+plot on the right, F1 is wider and F2 is more compressed.
 
 ![](man/figures/README-spectrogram_example-1.png)<!-- -->
 

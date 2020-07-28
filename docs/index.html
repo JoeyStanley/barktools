@@ -100,9 +100,10 @@
 <div id="plotting-in-the-bark-scale" class="section level2">
 <h2 class="hasAnchor">
 <a href="#plotting-in-the-bark-scale" class="anchor"></a>Plotting in the Bark scale</h2>
-<p>You can use <code>scale_x_bark</code> and <code>scale_y_bark</code> within a <code>ggplot</code> to plot the data in Hz but scaled into Barks. In the following F1-F2 plot, the front of portion of the vowel space is more compressed.</p>
+<p>You can use <code>scale_x_bark</code> and <code>scale_y_bark</code> within a <code>ggplot</code> to plot the data in Hz but scaled into Barks. In the following side-by-side comparison of an F1-F2 plot, the figure on the left uses a linear scale. Meanwhile, in the figure on the right, the left and bottom portions of the plot is more compressed.</p>
 <p><img src="reference/figures/README-f1_f2_example-1.png"><!-- --></p>
-<p>In the following spectrogram plots, F1 is wider and F2 is more compressed.</p>
+<p>The plot on the right looks the same as if you had plotted the data in Barks themselves, except the axes are in Hz instead of Barks.</p>
+<p>In the following spectrogram plots, we only need to use the Bark scale along the <em>y</em>-axis. In the left panel, which displays the data in a linear scale, F2 takes up the majorty of the plot. Meanwhile, in the plot on the right, F1 is wider and F2 is more compressed.</p>
 <p><img src="reference/figures/README-spectrogram_example-1.png"><!-- --></p>
 </div>
 <div id="converting-between-barks-and-hz" class="section level2">
