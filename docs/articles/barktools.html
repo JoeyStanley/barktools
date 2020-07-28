@@ -99,6 +99,110 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
+<p>This package makes it easier to work with the Bark scale when analyzing and plotting acoustic data. To install the package, you can do so by downloading it from github.</p>
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="co"># install.packages("remotes") # &lt;- if not already installed</span>
+<span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"joeystanley/barktools"</span>)</pre></body></html></div>
+<p>You can then load it like any other library.</p>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">barktools</span>)
+<span class="fu"><a href="../reference/bark.html">bark</a></span>(<span class="fl">100</span>)</pre></body></html></div>
+<pre><code>## [1] 0.9557379</code></pre>
+<p>(I’ll load a couple others too.)</p>
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ggplot2</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)</pre></body></html></div>
+</div>
+<div id="load-the-data" class="section level2">
+<h2 class="hasAnchor">
+<a href="#load-the-data" class="anchor"></a>Load the data</h2>
+<p>For this little vignette, I’ll load some sample vowel data from my own speech. It’s got some outliers, but that’s the nature of automatically-processed data.</p>
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="no">vowels</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">vowels</span>)</pre></body></html></div>
+<pre><code>## # A tibble: 6 x 12
+##   vowel_id start   end     t    F1    F2    F3    F4 word  pre   vowel fol  
+##      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;fct&gt; &lt;chr&gt;
+## 1        1  2.06  2.41  2.23  368. 1018. 2602. 3168. snoʊz sn    GOAT  z    
+## 2        2  3     3.36  3.18  377. 2032. 2761. 3408. deɪz  d     FACE  z    
+## 3        4  4.94  5.19  5.07  314. 2179. 2915. 3380. teɪd  t     FACE  d    
+## 4        5  5.91  6.17  6.04  274. 1378. 2235. 3270. zudz  z     GOOSE dz   
+## 5        7  8.13  8.4   8.26  350. 1624. 2485. 3384. stʊz  st    FOOT  z    
+## 6        8  9.16  9.41  9.28  313. 2181. 2863. 3205. heɪdz h     FACE  dz</code></pre>
+</div>
+<div id="an-f1-f2-plot" class="section level2">
+<h2 class="hasAnchor">
+<a href="#an-f1-f2-plot" class="anchor"></a>An F1-F2 plot</h2>
+<p>Here’s an F1-F2 plot that shows my vowel space. For now, I’ll just keep it simple.</p>
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="no">vowels</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="no">F2</span>, <span class="no">F1</span>)) +
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>() +
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_reverse</a></span>() +
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_reverse</a></span>() +
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span>() +
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span>(<span class="kw">title</span> <span class="kw">=</span> <span class="st">"Joey's vowels"</span>,
+       <span class="kw">subtitle</span> <span class="kw">=</span> <span class="st">"Data and plot are in Hz"</span>)</pre></body></html></div>
+<p><img src="barktools_files/figure-html/simple%20in%20hz-1.png" width="700"></p>
+<p>Now, let’s say I want to plot using Barks. You can use the <code><a href="../reference/bark.html">bark()</a></code> function to convert the formant frequencies into Barks.</p>
+<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">vowels_with_barks</span> <span class="kw">&lt;-</span> <span class="no">vowels</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">F1_bark</span> <span class="kw">=</span> <span class="fu"><a href="../reference/bark.html">bark</a></span>(<span class="no">F1</span>),
+         <span class="kw">F2_bark</span> <span class="kw">=</span> <span class="fu"><a href="../reference/bark.html">bark</a></span>(<span class="no">F2</span>))
+
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="no">vowels_with_barks</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="no">F2_bark</span>, <span class="no">F1_bark</span>)) +
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>() +
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_reverse</a></span>() +
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_reverse</a></span>() +
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span>() +
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span>(<span class="kw">title</span> <span class="kw">=</span> <span class="st">"Joey's vowels"</span>,
+       <span class="kw">subtitle</span> <span class="kw">=</span> <span class="st">"Data and plot are in Barks"</span>)</pre></body></html></div>
+<p><img src="barktools_files/figure-html/simple%20in%20barks-1.png" width="700"></p>
+<p>The Bark scale turns the nonlinear Hz data into something a little more linear, so the shape of the vowel space should change somewhat.</p>
+<p>The problem is most people can’t readily interpret the Barks unit. What is the Hz equivalent of 6 Barks? We can look this up using the <code><a href="../reference/bark.html">hz()</a></code> function:</p>
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="../reference/bark.html">hz</a></span>(<span class="fl">6</span>)</pre></body></html></div>
+<pre><code>## [1] 631.1045</code></pre>
+<p>But it would be better if we could incorporate more interpretable values into the plot itself. I think the first time I saw this was in <a href="https://www.jstor.org/stable/44526873?seq=1#metadata_info_tab_contents">Harrington et al’s (2000) paper</a> on how the Queen of England’s speech changes over time:</p>
+<!--<img src="man/figures/harrington_sample.jpg" width="500px" style="display: block; margin: auto;" />-->
+<p>Notice how the axes are in Barks, but the data is still plotted in Hz. This is a perfect case for using the <code><a href="../reference/scale_x_bark.html">scale_x_bark()</a></code> and <code><a href="../reference/scale_x_bark.html">scale_y_bark()</a></code> functions. Like the other <code>scale_*</code> functions in ggplot2, this will transform the axes of your plot. In this case, it’ll convert the plotting area to the Bark scale, but the values will be in Hz still.</p>
+<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="no">vowels</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="no">F2</span>, <span class="no">F1</span>)) +
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>() +
+  <span class="fu"><a href="../reference/scale_x_bark.html">scale_x_bark</a></span>() +
+  <span class="fu"><a href="../reference/scale_x_bark.html">scale_y_bark</a></span>() +
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span>() +
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span>(<span class="kw">title</span> <span class="kw">=</span> <span class="st">"Joey's vowels"</span>,
+       <span class="kw">subtitle</span> <span class="kw">=</span> <span class="st">"Data is in Hz; plot is in Barks"</span>)</pre></body></html></div>
+<p><img src="barktools_files/figure-html/f1%20f2%20in%20barks-1.png" width="700"></p>
+<p>Now, you can see that the shape of the vowel space is identical to the plot above, except the axis labels are more useful: I have a better idea of what 500Hz means. Note that the axes are reversed as well, just like <code>scale_*_reverse</code>.</p>
+<p>At this point, it might be useful to modify the axes with some additional labels. Since <code>scale_*_bark</code> is just a wrapper around <code>scale_*_continuous</code>, any argument that you would normally include in the latter function will work just fine in the bark function. Specifically, I’ll modify which values get labels with <code>breaks</code> and the gridlines with <code>minor_breaks</code>.</p>
+<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="no">vowels</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="no">F2</span>, <span class="no">F1</span>)) +
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>() +
+  <span class="fu"><a href="../reference/scale_x_bark.html">scale_x_bark</a></span>(<span class="kw">breaks</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">500</span>, <span class="fl">1000</span>, <span class="fl">1500</span>, <span class="fl">2000</span>, <span class="fl">3000</span>)),
+               <span class="kw">minor_breaks</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">0</span>, <span class="fl">4000</span>, <span class="fl">100</span>)) +
+  <span class="fu"><a href="../reference/scale_x_bark.html">scale_y_bark</a></span>(<span class="kw">breaks</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">200</span>, <span class="fl">400</span>, <span class="fl">600</span>, <span class="fl">800</span>, <span class="fl">1000</span>, <span class="fl">1500</span>)),
+               <span class="kw">minor_breaks</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">0</span>, <span class="fl">3000</span>, <span class="fl">100</span>)) +
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span>() +
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span>(<span class="kw">title</span> <span class="kw">=</span> <span class="st">"Joey's vowels"</span>,
+       <span class="kw">subtitle</span> <span class="kw">=</span> <span class="st">"Data is in Hz; plot is in Barks"</span>)</pre></body></html></div>
+<p><img src="barktools_files/figure-html/f1%20f2%20in%20barks%20breaks-1.png" width="700"></p>
+<p>Exactly which values you want to put is up to you, obviously, so play around with it until it looks good.</p>
+</div>
+<div id="spectrogram-plots" class="section level2">
+<h2 class="hasAnchor">
+<a href="#spectrogram-plots" class="anchor"></a>Spectrogram plots</h2>
+<p>The other type of plot you might want to use <code>scale_y_bark</code> for is something that looks like a spectrogram, that is a time-by-hz plot.</p>
+<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="no">mouth</span>)
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="no">mouth</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="no">percent</span>, <span class="no">hz</span>, <span class="kw">color</span> <span class="kw">=</span> <span class="no">formant</span>, <span class="kw">group</span> <span class="kw">=</span> <span class="no">traj_id</span>)) +
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_path</a></span>(<span class="kw">alpha</span> <span class="kw">=</span> <span class="fl">0.5</span>) +
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span>() +
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html">guides</a></span>(<span class="kw">color</span> <span class="kw">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guide_legend.html">guide_legend</a></span>(<span class="kw">reverse</span><span class="kw">=</span><span class="fl">TRUE</span>))</pre></body></html></div>
+<p><img src="barktools_files/figure-html/spectrogram%20in%20hz-1.png" width="700"></p>
+<p>Now, a lot of the change in /ai/ happens along the F1 dimension, but because of the logorithmic nature of sound, F2 visually takes up most of the vertical space and F1 is sort of squished down at the bottom. We can emphasize F1 by transforming the <em>y</em>-axis into the Bark scale.</p>
+<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="no">mouth</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="no">percent</span>, <span class="no">hz</span>, <span class="kw">color</span> <span class="kw">=</span> <span class="no">formant</span>, <span class="kw">group</span> <span class="kw">=</span> <span class="no">traj_id</span>)) +
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_path</a></span>(<span class="kw">alpha</span> <span class="kw">=</span> <span class="fl">0.5</span>) +
+  <span class="fu"><a href="../reference/scale_x_bark.html">scale_y_bark</a></span>(<span class="kw">rev</span> <span class="kw">=</span> <span class="fl">FALSE</span>) +
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span>() +
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guides.html">guides</a></span>(<span class="kw">color</span> <span class="kw">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/guide_legend.html">guide_legend</a></span>(<span class="kw">reverse</span><span class="kw">=</span><span class="fl">TRUE</span>))</pre></body></html></div>
+<p><img src="barktools_files/figure-html/spectrogram%20in%20barks-1.png" width="700"></p>
+<p>Note that this time, I added the argument <code>rev = FALSE</code> to <code>scale_y_bark</code>. By default, the function will flip the axis (like <code>scale_y_reverse</code>), but in this case that behavior is not desired. So, you can suppress that flip by specifying <code>rev = FALSE</code>.</p>
+</div>
+<div id="conclusion" class="section level2">
+<h2 class="hasAnchor">
+<a href="#conclusion" class="anchor"></a>Conclusion</h2>
+<p>And that’s it! That’s the whole package. I had the idea for <code>scale_*_bark</code> while falling asleep a few days ago and thought it would be a useful thing for me. Perhaps you’ll find some use for it too.</p>
 </div>
   </div>
 
