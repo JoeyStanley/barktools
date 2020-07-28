@@ -89,5 +89,3 @@ vowels %>%
     ##  9 THOUGHT  527. 1201. 2733. 3434.    5.15    9.66    15.1    16.5
     ## 10 FOOT     367. 1594. 2477  3367     3.70   11.5     14.4    16.4
     ## # … with 554 more rows
-
-Please see [Getting Started](barktools.html) to find out more.
