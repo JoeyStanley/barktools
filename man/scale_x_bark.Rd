@@ -34,27 +34,3 @@ scale, see Harrington et al. (2000).
   https://doi.org/10.1017/S0025100300006666
 }
 
-\examples{
-library(ggplot2)
-vowels <- read.csv("http://joeystanley.com/data/joey.csv")
-
-# A baseline plot using linear scales
-ggplot(vowels, aes(F2, F1)) +
-   geom_point() +
-   scale_x_reverse() +
-   scale_y_reverse()
-
-# Compare that to this which uses barks.
-ggplot(vowels, aes(F2, F1)) +
-   geom_point() +
-   scale_x_bark() +
-   scale_y_bark()
-
-# It may be helpful to tweak the ticks
-ggplot(vowels, aes(F2, F1)) +
-   geom_point() +
-   scale_x_bark(breaks = c(c(500, 1000, 1500, 2000, 3000)),
-                minor_breaks = seq(0, 3000, 100)) +
-   scale_y_bark(breaks = c(c(250, 500, 750, 1000, 1500)),
-                minor_breaks = seq(0, 3000, 100))
-}
