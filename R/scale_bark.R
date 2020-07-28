@@ -22,14 +22,16 @@
 #' @examples 
 #' library(ggplot2)
 #' 
-#' # You can use this function wherever you'd use `scale_x_reverse` or `scale_y_reverse`. Here is a simple F1-F2 plot:
+#' # You can use this function wherever you'd use `scale_x_reverse` or 
+#' # `scale_y_reverse`. Here is a simple F1-F2 plot:
 #' data(vowels)
 #' ggplot(vowels, aes(F2, F1, color = vowel)) + 
 #'    geom_point() + 
 #'    scale_x_bark() + 
 #'    scale_y_bark()
 #'    
-#' # If you want to plot a spectrogram-like plot, you only need `scale_y_bark`. Be sure to set `rev=TRUE` so that the axis is not reversed.
+#' # If you want to plot a spectrogram-like plot, you only need `scale_y_bark`. 
+#' # Be sure to set `rev=TRUE` so that the axis is not reversed.
 #' data(mouth)
 #' ggplot(mouth, aes(percent, hz, color = formant, group = traj_id)) + 
 #'    geom_path(alpha = 0.5) +
