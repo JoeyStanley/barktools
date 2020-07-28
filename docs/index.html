@@ -89,12 +89,56 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="barktools-" class="section level1">
+<div id="barktools" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#barktools-" class="anchor"></a>barktools <img src="reference/figures/logo.png" align="right" height="150">
-</h1></div>
+<a href="#barktools" class="anchor"></a>barktools</h1></div>
 <p>Functions to help when working with Barks.</p>
 <p>This package makes it easier to work with the Bark scale when analyzing and plotting acoustic data. It contains two pairs of functions. The first (<code>bark</code> and <code>hz</code>) convert between Hz and Barks. The other (<code>scale_x_bark</code> and <code>scale_y_bark</code>) make it easy to plot data in ggplot2 using the Bark scale.</p>
+<div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">barktools</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>) <span class="co"># version &lt;1.0.0</span>
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ggplot2</span>)</pre></div>
+<div id="plotting-in-the-bark-scale" class="section level2">
+<h2 class="hasAnchor">
+<a href="#plotting-in-the-bark-scale" class="anchor"></a>Plotting in the Bark scale</h2>
+<p>You can use <code>scale_x_bark</code> and <code>scale_y_bark</code> within a <code>ggplot</code> to plot the data in Hz but scaled into Barks. In the following F1-F2 plot, the front of portion of the vowel space is more compressed.</p>
+<p><img src="reference/figures/README-f1_f2_example-1.png"><!-- --></p>
+<p>In the following spectrogram plots, F1 is wider and F2 is more compressed.</p>
+<p><img src="reference/figures/README-spectrogram_example-1.png"><!-- --></p>
+</div>
+<div id="converting-between-barks-and-hz" class="section level2">
+<h2 class="hasAnchor">
+<a href="#converting-between-barks-and-hz" class="anchor"></a>Converting between Barks and Hz</h2>
+<p>You can also use <code>barktools</code> to convert between hz and barks with the <code>hz</code> and <code>barks</code> functions:</p>
+<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="reference/bark.html">bark</a></span>(<span class="fl">500</span>)</pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co">## [1] 4.919187</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="r"><span class="fu"><a href="reference/bark.html">hz</a></span>(<span class="fl">3</span>)</pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co">## [1] 297.1993</span></span></code></pre></div>
+<p>You can use this to convert entire vectors as well:</p>
+<div class="sourceCode" id="cb6"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="no">vowels</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">vowels</span>$<span class="no">F1</span>)</pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co">## [1] 367.7 376.7 314.4 273.7 349.5 313.2</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fu"><a href="reference/bark.html">bark</a></span>(<span class="no">vowels</span>$<span class="no">F1</span>))</pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co">## [1] 3.705098 3.792047 3.176060 2.755086 3.527196 3.163864</span></span></code></pre></div>
+<p>Or, more elegantly, with in a tidyverse pipeline:</p>
+<div class="sourceCode" id="cb10"><pre class="r"><span class="no">vowels</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">vowel</span>, <span class="no">F1</span>, <span class="no">F2</span>, <span class="no">F3</span>, <span class="no">F4</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span>(<span class="no">F1</span>:<span class="no">F4</span>, <span class="no">bark</span>, <span class="kw">.names</span> <span class="kw">=</span> <span class="st">"{col}_bark"</span>))</pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co">## # A tibble: 564 x 9</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="co">##    vowel      F1    F2    F3    F4 F1_bark F2_bark F3_bark F4_bark</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a><span class="co">##    &lt;fct&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="co">##  1 GOAT     368. 1018. 2602. 3168.    3.71    8.63    14.8    16.0</span></span>
+<span id="cb11-5"><a href="#cb11-5"></a><span class="co">##  2 FACE     377. 2032. 2761. 3408.    3.79   13.1     15.2    16.5</span></span>
+<span id="cb11-6"><a href="#cb11-6"></a><span class="co">##  3 FACE     314. 2179. 2915. 3380.    3.18   13.6     15.5    16.4</span></span>
+<span id="cb11-7"><a href="#cb11-7"></a><span class="co">##  4 GOOSE    274. 1378. 2235. 3270.    2.76   10.5     13.8    16.2</span></span>
+<span id="cb11-8"><a href="#cb11-8"></a><span class="co">##  5 FOOT     350. 1624. 2485. 3384.    3.53   11.6     14.5    16.4</span></span>
+<span id="cb11-9"><a href="#cb11-9"></a><span class="co">##  6 FACE     313. 2181. 2863. 3205.    3.16   13.6     15.4    16.1</span></span>
+<span id="cb11-10"><a href="#cb11-10"></a><span class="co">##  7 GOOSE    255. 1333. 2313. 3212.    2.55   10.3     14.0    16.1</span></span>
+<span id="cb11-11"><a href="#cb11-11"></a><span class="co">##  8 THOUGHT  585   969. 2813. 3405     5.63    8.34    15.3    16.5</span></span>
+<span id="cb11-12"><a href="#cb11-12"></a><span class="co">##  9 THOUGHT  527. 1201. 2733. 3434.    5.15    9.66    15.1    16.5</span></span>
+<span id="cb11-13"><a href="#cb11-13"></a><span class="co">## 10 FOOT     367. 1594. 2477  3367     3.70   11.5     14.4    16.4</span></span>
+<span id="cb11-14"><a href="#cb11-14"></a><span class="co">## # … with 554 more rows</span></span></code></pre></div>
+<p>Please see <a href="docs/barktools.html">Getting Started</a> to find out more.</p>
+</div>
 </div>
   </div>
 
