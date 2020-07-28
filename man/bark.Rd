@@ -39,7 +39,3 @@ Traunmüller (1990).
   America 33, no. 2 (1961): 248–248. https://doi.org/10.1121/1.1908630.
 }
 
-\examples{
-read.csv("http://joeystanley.com/data/joey.csv")
-
-}

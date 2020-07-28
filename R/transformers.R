@@ -21,9 +21,6 @@
 #'
 #' @param x A number.
 #' @return The number transformed into Barks or Hz.
-#' @examples
-#' read.csv("http://joeystanley.com/data/joey.csv")
-#' 
 bark <- function (x) {
   
   # The main function

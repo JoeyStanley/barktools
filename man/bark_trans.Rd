@@ -2,7 +2,7 @@
 % Please edit documentation in R/scales.R
 \name{bark_trans}
 \alias{bark_trans}
-\title{A bark transformation}
+\title{This function is for internal purposes only.}
 \usage{
 bark_trans(rev)
 }

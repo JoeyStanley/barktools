@@ -1,5 +1,4 @@
-
-# barktools
+# barktools <img src="man/figures/logo.png" align="right" height="150" />
 
 Functions to help when working with Barks.
 

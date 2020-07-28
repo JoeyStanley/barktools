@@ -6,6 +6,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Introduction to barktools • barktools</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
@@ -13,6 +19,7 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to barktools">
 <meta property="og:description" content="barktools">
+<meta property="og:image" content="/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -37,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">barktools</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.1.0</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.2.0</span>
       </span>
     </div>
 
@@ -89,100 +96,9 @@
 
     
     
-<p>This package makes it easier to work with the Bark scale when analyzing and plotting acoustic data. To install the package, you can do so by downloading it from github.</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="co"># install.packages("remotes") # &lt;- if not already installed</span>
-<span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"joeystanley/barktools"</span>)</pre></body></html></div>
-<p>You can then load it like any other library.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">barktools</span>)</pre></body></html></div>
-<div id="load-the-data" class="section level2">
+<div id="installation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#load-the-data" class="anchor"></a>Load the data</h2>
-<p>For this little vignette, I’ll load some sample vowel data from my own speech. It’s got some outliers, but that’s the nature of automatically-processed data.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyverse</span>)
-<span class="no">vowels</span> <span class="kw">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"http://joeystanley.com/data/joey.csv"</span>)</pre></body></html></div>
-<p>Here’s a simple plot that shows my vowel space. For now, I’ll just keep it simple.</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu">ggplot</span>(<span class="no">vowels</span>, <span class="fu">aes</span>(<span class="no">F2</span>, <span class="no">F1</span>)) +
-  <span class="fu">geom_point</span>() +
-  <span class="fu">scale_x_reverse</span>() +
-  <span class="fu">scale_y_reverse</span>() +
-  <span class="fu">theme_minimal</span>() +
-  <span class="fu">labs</span>(<span class="kw">title</span> <span class="kw">=</span> <span class="st">"Joey's vowels"</span>,
-       <span class="kw">subtitle</span> <span class="kw">=</span> <span class="st">"Data and plot are in Hz"</span>)</pre></body></html></div>
-<p><img src="README_files/figure-gfm/unnamed-chunk-5-1.png"><!-- --></p>
-<p>Now, let’s say I want to plot using Barks. You can use the <code><a href="../reference/bark.html">bark()</a></code> function to convert the formant frequencies into Barks.</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">vowels_with_barks</span> <span class="kw">&lt;-</span> <span class="no">vowels</span> <span class="kw">%&gt;%</span>
-  <span class="fu">mutate</span>(<span class="kw">F1_bark</span> <span class="kw">=</span> <span class="fu"><a href="../reference/bark.html">bark</a></span>(<span class="no">F1</span>),
-         <span class="kw">F2_bark</span> <span class="kw">=</span> <span class="fu"><a href="../reference/bark.html">bark</a></span>(<span class="no">F2</span>))
-
-<span class="fu">ggplot</span>(<span class="no">vowels_with_barks</span>, <span class="fu">aes</span>(<span class="no">F2_bark</span>, <span class="no">F1_bark</span>)) +
-  <span class="fu">geom_point</span>() +
-  <span class="fu">scale_x_reverse</span>() +
-  <span class="fu">scale_y_reverse</span>() +
-  <span class="fu">theme_minimal</span>() +
-  <span class="fu">labs</span>(<span class="kw">title</span> <span class="kw">=</span> <span class="st">"Joey's vowels"</span>,
-       <span class="kw">subtitle</span> <span class="kw">=</span> <span class="st">"Data and plot are in Barks"</span>)</pre></body></html></div>
-<p><img src="README_files/figure-gfm/unnamed-chunk-6-1.png"><!-- --></p>
-<p>The Bark scale turns the nonlinear Hz data into something a little more linear, so the shape of the vowel space should change somewhat.</p>
-<p>The problem is most people can’t readily interpret the Barks unit. What is the Hz equivalent of 6 Barks? We can look this up using the <code><a href="../reference/bark.html">hz()</a></code> function:</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="../reference/bark.html">hz</a></span>(<span class="fl">6</span>)</pre></body></html></div>
-<pre><code>## [1] 631.1045</code></pre>
-<p>But it would be better if we could incorporate more interpretable values into the plot itself. I think the first time I saw this was in <a href="https://www.jstor.org/stable/44526873?seq=1#metadata_info_tab_contents">Harrington et al’s (2000) paper</a> on how the Queen of England’s speech changes over time:</p>
-<p><img src="harrington_sample.jpg" width="500px" style="display: block; margin: auto;"></p>
-<p>Notice how the axes are in Barks, but the data is still plotted in Hz. This is a perfect case for using the <code><a href="../reference/scale_x_bark.html">scale_x_bark()</a></code> and <code><a href="../reference/scale_x_bark.html">scale_y_bark()</a></code> functions. Like the other <code>scale_*</code> functions in ggplot2, this will transform the axes of your plot. In this case, it’ll convert the plotting area to the Bark scale, but the values will be in Hz still.</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="fu">ggplot</span>(<span class="no">vowels</span>, <span class="fu">aes</span>(<span class="no">F2</span>, <span class="no">F1</span>)) +
-  <span class="fu">geom_point</span>() +
-  <span class="fu"><a href="../reference/scale_x_bark.html">scale_x_bark</a></span>() +
-  <span class="fu"><a href="../reference/scale_x_bark.html">scale_y_bark</a></span>() +
-  <span class="fu">theme_minimal</span>() +
-  <span class="fu">labs</span>(<span class="kw">title</span> <span class="kw">=</span> <span class="st">"Joey's vowels"</span>,
-       <span class="kw">subtitle</span> <span class="kw">=</span> <span class="st">"Data is in Hz; plot is in Barks"</span>)</pre></body></html></div>
-<p><img src="README_files/figure-gfm/unnamed-chunk-9-1.png"><!-- --></p>
-<p>Now, you can see that the shape of the vowel space is identical to the plot above, except the axis labels are more useful: I have a better idea of what 500Hz means. Note that the axes are reversed as well, just like <code>scale_*_reverse</code>.</p>
-<p>At this point, it might be useful to modify the axes with some additional labels. Since <code>scale_*_bark</code> is just a wrapper around <code>scale_*_continuous</code>, any argument that you would normally include in the latter function will work just fine in the bark function. Specifically, I’ll modify which values get labels with <code>breaks</code> and the gridlines with <code>minor_breaks</code>.</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu">ggplot</span>(<span class="no">vowels</span>, <span class="fu">aes</span>(<span class="no">F2</span>, <span class="no">F1</span>)) +
-  <span class="fu">geom_point</span>() +
-  <span class="fu"><a href="../reference/scale_x_bark.html">scale_x_bark</a></span>(<span class="kw">breaks</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">500</span>, <span class="fl">1000</span>, <span class="fl">1500</span>, <span class="fl">2000</span>, <span class="fl">3000</span>)),
-               <span class="kw">minor_breaks</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">0</span>, <span class="fl">4000</span>, <span class="fl">100</span>)) +
-  <span class="fu"><a href="../reference/scale_x_bark.html">scale_y_bark</a></span>(<span class="kw">breaks</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">200</span>, <span class="fl">400</span>, <span class="fl">600</span>, <span class="fl">800</span>, <span class="fl">1000</span>, <span class="fl">1500</span>)),
-               <span class="kw">minor_breaks</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">0</span>, <span class="fl">3000</span>, <span class="fl">100</span>)) +
-  <span class="fu">theme_minimal</span>() +
-  <span class="fu">labs</span>(<span class="kw">title</span> <span class="kw">=</span> <span class="st">"Joey's vowels"</span>,
-       <span class="kw">subtitle</span> <span class="kw">=</span> <span class="st">"Data is in Hz; plot is in Barks"</span>)</pre></body></html></div>
-<p><img src="README_files/figure-gfm/unnamed-chunk-10-1.png"><!-- --></p>
-<p>Exactly which values you want to put is up to you, obviously, so play around with it until it looks good.</p>
-</div>
-<div id="spectrogram-plots" class="section level2">
-<h2 class="hasAnchor">
-<a href="#spectrogram-plots" class="anchor"></a>Spectrogram plots</h2>
-<p>The other type of plot you might want to use <code>scale_y_bark</code> for is something that looks like a spectrogram, that is a time-by-hz plot. You’ll have to transform the data a little bit. You can use the code that I provided in my <a href="http://joeystanley.com/blog/reshaping-vowel-formant-data-with-tidyr">tutorial</a> with the new <code>pivot_longer</code> function in <code>dplyr</code>. I’ll just pull out my /aʊ/ vowel for this plot:</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">vowels_long</span> <span class="kw">&lt;-</span> <span class="no">vowels</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">vowel</span> <span class="kw">==</span> <span class="st">"AW"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">"@"</span>)) <span class="kw">%&gt;%</span>
-  <span class="fu">rowid_to_column</span>(<span class="st">"phoneme_id"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu">pivot_longer</span>(<span class="kw">cols</span> <span class="kw">=</span> <span class="fu">contains</span>(<span class="st">"@"</span>),
-               <span class="kw">names_to</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"formant"</span>, <span class="st">"percent"</span>),
-               <span class="kw">names_pattern</span> <span class="kw">=</span> <span class="st">"(F\\d)@(\\d\\d)%"</span>,
-               <span class="kw">names_ptypes</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">formant</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="kw">levels</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"F1"</span>, <span class="st">"F2"</span>)),
-                                   <span class="kw">percent</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">integer</a></span>()),
-               <span class="kw">values_to</span> <span class="kw">=</span> <span class="st">"hz"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu">unite</span>(<span class="no">traj_id</span>, <span class="no">phoneme_id</span>, <span class="no">formant</span>, <span class="kw">remove</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
-<p>Here’s what a spectrogram-like plot might look like</p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="fu">ggplot</span>(<span class="no">vowels_long</span>, <span class="fu">aes</span>(<span class="no">percent</span>, <span class="no">hz</span>, <span class="kw">color</span> <span class="kw">=</span> <span class="no">formant</span>, <span class="kw">group</span> <span class="kw">=</span> <span class="no">traj_id</span>)) +
-  <span class="fu">geom_path</span>(<span class="kw">alpha</span> <span class="kw">=</span> <span class="fl">0.5</span>) +
-  <span class="fu">theme_bw</span>()</pre></body></html></div>
-<p><img src="README_files/figure-gfm/unnamed-chunk-12-1.png"><!-- --></p>
-<p>Now, a lot of the change in /ai/ happens along the F1 dimension, but because of the logorithmic nature of sound, F2 visually takes up most of the vertical space and F1 is sort of squished down at the bottom. We can emphasize F1 by transforming the <em>y</em>-axis into the Bark scale.</p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu">ggplot</span>(<span class="no">vowels_long</span>, <span class="fu">aes</span>(<span class="no">percent</span>, <span class="no">hz</span>, <span class="kw">color</span> <span class="kw">=</span> <span class="no">formant</span>, <span class="kw">group</span> <span class="kw">=</span> <span class="no">traj_id</span>)) +
-  <span class="fu">geom_path</span>(<span class="kw">alpha</span> <span class="kw">=</span> <span class="fl">0.5</span>) +
-  <span class="fu"><a href="../reference/scale_x_bark.html">scale_y_bark</a></span>(<span class="kw">rev</span> <span class="kw">=</span> <span class="fl">FALSE</span>) +
-  <span class="fu">theme_bw</span>()</pre></body></html></div>
-<p><img src="README_files/figure-gfm/unnamed-chunk-13-1.png"><!-- --></p>
-<p>Note that this time, I added the argument <code>rev = FALSE</code> to <code>scale_y_bark</code>. By default, the function will flip the axis (like <code>scale_y_reverse</code>), but in this case that behavior is not desired. So, you can suppress that flip by specifying <code>rev = FALSE</code>.</p>
-</div>
-<div id="conclusion" class="section level2">
-<h2 class="hasAnchor">
-<a href="#conclusion" class="anchor"></a>Conclusion</h2>
-<p>And that’s it! That’s the whole package. I had the idea for <code>scale_*_bark</code> while falling asleep a few days ago and thought it would be a useful thing for me. Perhaps you’ll find some use for it too.</p>
+<a href="#installation" class="anchor"></a>Installation</h2>
 </div>
   </div>
 

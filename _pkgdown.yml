@@ -13,3 +13,10 @@ reference:
   - contents:
     - scale_x_bark
     - scale_y_bark
+  - title: "Data"
+  - contents:
+    - vowels
+    - mouth
+  - title: "Other"
+  - contents:
+    - bark_trans
