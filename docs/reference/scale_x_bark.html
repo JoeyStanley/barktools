@@ -136,7 +136,7 @@ scale, see Harrington et al. (2000)." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Plot using the Bark scale.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/JoeyStanley/barktools/blob/master/R/scales.R'><code>R/scales.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/JoeyStanley/barktools/blob/master/R/scale_bark.R'><code>R/scale_bark.R</code></a></small>
     <div class="hidden name"><code>scale_x_bark.Rd</code></div>
     </div>
 
@@ -179,6 +179,21 @@ hz) to emphasize change in F1, but you'll probably want to specify
   Phonetic Association 30, no. 1–2 (2000): 63–78.
   https://doi.org/10.1017/S0025100300006666</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>ggplot2</span>)
+
+<span class='co'># You can use this function wherever you'd use `scale_x_reverse` or `scale_y_reverse`. Here is a simple F1-F2 plot:</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>vowels</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='no'>vowels</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='no'>F2</span>, <span class='no'>F1</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='no'>vowel</span>)) +
+   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() +
+   <span class='fu'>scale_x_bark</span>() +
+   <span class='fu'>scale_y_bark</span>()</div><div class='img'><img src='scale_x_bark-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># If you want to plot a spectrogram-like plot, you only need `scale_y_bark`. Be sure to set `rev=TRUE` so that the axis is not reversed.</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>mouth</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='no'>mouth</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='no'>percent</span>, <span class='no'>hz</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='no'>formant</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>traj_id</span>)) +
+   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_path</a></span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.5</span>) +
+   <span class='fu'>scale_y_bark</span>(<span class='kw'>rev</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='scale_x_bark-2.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

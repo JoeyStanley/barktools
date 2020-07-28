@@ -135,7 +135,7 @@ Traunmüller (1990)." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Convert between Hz and Barks.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/JoeyStanley/barktools/blob/master/R/transformers.R'><code>R/transformers.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/JoeyStanley/barktools/blob/master/R/bark_and_hz.R'><code>R/bark_and_hz.R</code></a></small>
     <div class="hidden name"><code>bark.Rd</code></div>
     </div>
 
@@ -179,6 +179,27 @@ Traunmüller (1990).</p>
   Critical Bands (Frequenzgruppen)." The Journal of the Acoustical Society of
   America 33, no. 2 (1961): 248–248. https://doi.org/10.1121/1.1908630.</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># The simplest case is by converting one number.</span>
+<span class='fu'>bark</span>(<span class='fl'>500</span>)</div><div class='output co'>#&gt; [1] 4.919187</div><div class='input'><span class='fu'>hz</span>(<span class='fl'>3</span>)</div><div class='output co'>#&gt; [1] 297.1993</div><div class='input'>
+<span class='co'># You can also convert a whole vector of numbers.</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>vowels</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'>bark</span>(<span class='no'>vowels</span>$<span class='no'>F1</span>))</div><div class='output co'>#&gt; [1] 3.705098 3.792047 3.176060 2.755086 3.527196 3.163864</div><div class='input'>
+<span class='co'>#' This is probably easier within a tidyverse pipeline</span>
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
+<span class='no'>vowels</span> <span class='kw'>%&gt;%</span>
+   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span>(<span class='no'>vowel</span>, <span class='no'>F1</span>:<span class='no'>F4</span>) <span class='kw'>%&gt;%</span>
+   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>F1_bark</span> <span class='kw'>=</span> <span class='fu'>bark</span>(<span class='no'>F1</span>),
+          <span class='kw'>F2_bark</span> <span class='kw'>=</span> <span class='fu'>bark</span>(<span class='no'>F2</span>),
+          <span class='kw'>F3_bark</span> <span class='kw'>=</span> <span class='fu'>bark</span>(<span class='no'>F3</span>),
+          <span class='kw'>F4_bark</span> <span class='kw'>=</span> <span class='fu'>bark</span>(<span class='no'>F4</span>))
+
+<span class='co'># Or, more elegantly, using dplyr::across()</span>
+<span class='no'>vowels</span> <span class='kw'>%&gt;%</span>
+   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span>(<span class='no'>vowel</span>, <span class='no'>F1</span>:<span class='no'>F4</span>) <span class='kw'>%&gt;%</span>
+   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='fu'><a href='https://dplyr.tidyverse.org/reference/across.html'>across</a></span>(<span class='no'>F1</span>:<span class='no'>F4</span>, <span class='no'>bark</span>, <span class='kw'>.names</span> <span class='kw'>=</span> <span class='st'>"{col}_bark"</span>))
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
