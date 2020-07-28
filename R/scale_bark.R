@@ -43,7 +43,8 @@ scale_x_bark <- function(..., rev = TRUE) scale_x_continuous(..., trans = bark_t
 scale_y_bark <- function(..., rev = TRUE) scale_y_continuous(..., trans = bark_trans(rev = rev))
 
 
-#' This function is for internal purposes only. 
+#' For internal purposes only. 
+#' 
 #' Used within scale_*_bark
 #' @NoRd
 bark_trans <- function(rev) {
