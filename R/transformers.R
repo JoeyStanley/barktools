@@ -21,6 +21,7 @@
 #'
 #' @param x A number.
 #' @return The number transformed into Barks or Hz.
+#' @export
 bark <- function (x) {
   
   # The main function
@@ -34,6 +35,7 @@ bark <- function (x) {
 }
 
 #' @rdname bark
+#' @export
 hz <- function(x) {
   
   # The adjustment for very low or very high measurements

@@ -19,9 +19,11 @@
 #'   easiest for F1-F2 plot. You can do this in spectrogram-like plots (time vs.
 #'   hz) to emphasize change in F1, but you'll probably want to specify
 #'   \code{rev = FALSE}.
+#' @export
 scale_x_bark <- function(..., rev = TRUE) scale_x_continuous(..., trans = bark_trans(rev = rev))
 
 #' @rdname scale_x_bark
+#' @export
 scale_y_bark <- function(..., rev = TRUE) scale_y_continuous(..., trans = bark_trans(rev = rev))
 
 
