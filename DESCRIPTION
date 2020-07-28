@@ -14,8 +14,5 @@ Encoding: UTF-8
 LazyData: true
 URL: https://joeystanley.github.io/barktools/, https://github.com/JoeyStanley/barktools/
 RoxygenNote: 7.1.1
-Suggests:
-  ggplot2 (>= 3.0),
-  scales (>= 1.1)
 Depends: 
     R (>= 2.10)
