@@ -154,7 +154,7 @@
 <div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="fu"><a href="../reference/bark.html">hz</a></span>(<span class="fl">6</span>)</pre></body></html></div>
 <pre><code>## [1] 631.1045</code></pre>
 <p>But it would be better if we could incorporate more interpretable values into the plot itself. I think the first time I saw this was in <a href="https://www.jstor.org/stable/44526873?seq=1#metadata_info_tab_contents">Harrington et al’s (2000) paper</a> on how the Queen of England’s speech changes over time:</p>
-<!--<img src="man/figures/harrington_sample.jpg" width="500px" style="display: block; margin: auto;" />-->
+<p><img src="man/figures/harrington_sample.jpg" width="500px" style="display: block; margin: auto;"></p>
 <p>Notice how the axes are in Barks, but the data is still plotted in Hz. This is a perfect case for using the <code><a href="../reference/scale_x_bark.html">scale_x_bark()</a></code> and <code><a href="../reference/scale_x_bark.html">scale_y_bark()</a></code> functions. Like the other <code>scale_*</code> functions in ggplot2, this will transform the axes of your plot. In this case, it’ll convert the plotting area to the Bark scale, but the values will be in Hz still.</p>
 <div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="no">vowels</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="no">F2</span>, <span class="no">F1</span>)) +
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>() +
