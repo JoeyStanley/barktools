@@ -1,3 +1,8 @@
+# barktools 0.2.0
+
+## Major changes
+ - Added two datasets: `vowels` and `mouth`.
+
 # barktools 0.1.0
 
 ## Initial release
