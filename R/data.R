@@ -31,8 +31,8 @@
 #' 18. Parents are from upstate New York and Minnesota. Lived in Utah, Brazil, 
 #' and Georgia as an adult. Data was recorded July 2020 (age 31).
 #' 
-#' Note that this is a subset of \code{joeyr::joey_coronals}. It's just the
-#' midpoints from those vowels and with canonical diphthongs removed.
+#' Note that this dataset is also in the \code{joeyr} package under the name 
+#' \code{midpoints}.
 #' 
 #' @format A data frame with 564 rows and 12 variables:
 #' \describe{
@@ -87,8 +87,7 @@
 #' 18. Parents are from upstate New York and Minnesota. Lived in Utah, Brazil, 
 #' and Georgia as an adult. Data was recorded July 2020 (age 31).
 #' 
-#' Note that this is a subset of \code{joeyr::joey_coronals}. It's just the
-#' MOUTH tokens, with just F1 and F2, and reshaped into a "tall" format.
+#' Note that this is dataset is also in the \code{joeyr} package.
 #' 
 #' @format A data frame with 2,758 rows and 12 variables:
 #' \describe{

@@ -55,7 +55,6 @@ White male, born in 1989 in suburban St. Louis where I lived  until I was
 18. Parents are from upstate New York and Minnesota. Lived in Utah, Brazil, 
 and Georgia as an adult. Data was recorded July 2020 (age 31).
 
-Note that this is a subset of \code{joeyr::joey_coronals}. It's just the
-MOUTH tokens, with just F1 and F2, and reshaped into a "tall" format.
+Note that this is dataset is also in the \code{joeyr} package.
 }
 \keyword{datasets}
