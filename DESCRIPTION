@@ -2,7 +2,8 @@ Package: barktools
 Type: Package
 Title: Working with the Bark Scale
 Version: 0.2.0
-Author: Joey Stanley
+Author: person("Joey", "Stanley", , "joey_stanley@byu.edu", role = c("aut", "cre"),
+      comment = c(ORCID = "0000-0002-9185-0048"))
 Maintainer: Joey Stanley <joey_stanley@byu.edu>
 Description: This package makes it easier to work with the
     Bark scale when analyzing and plotting acoustic data.
