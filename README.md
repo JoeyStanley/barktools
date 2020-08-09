@@ -1,5 +1,5 @@
 
-# barktools
+# barktools \<img src=“man/figures/bark.png” align=“right” /\>
 
 Functions to help when working with Barks.
 
