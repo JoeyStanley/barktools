@@ -3,6 +3,7 @@
 *.Rmd
 *.Rproj
 .Rbuildignore
+logo/*
 
 # History files
 .Rhistory
