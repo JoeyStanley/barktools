@@ -1,6 +1,6 @@
 home:
-  title: joeyr
-  description: A personal package for vowel data
+  title: barktools
+  description: Functions to help when working with Barks
 development:
   mode: unreleased
 template:
@@ -10,7 +10,7 @@ template:
   opengraph:
     image:
       src: man/figures/logo.png
-      alt: "Pool noodles configured to form the word poolnoodlr"
+      alt: "a hexagon showing tree bark with the name barktools"
     twitter:
       creator: "@joeystsanley"
       card: summary_large_image
